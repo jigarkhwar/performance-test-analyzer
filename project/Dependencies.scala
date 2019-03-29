@@ -13,6 +13,7 @@ object Dependencies {
   val catsEffectV     = "1.2.0"
   val doobieV         = "0.6.0"
   val circeVersion    = "0.10.0"
+  val pureConfigV     = "0.10.2"
 
   val logback        = "ch.qos.logback"             % "logback-classic" % logbackV
   val scalaLogging   = "com.typesafe.scala-logging" %% "scala-logging"  % scalaLoggingV
@@ -29,4 +30,5 @@ object Dependencies {
   val circeCore      = "io.circe"                   %% "circe-core"     % circeVersion
   val circeGeneric   = "io.circe"                   %% "circe-generic"  % circeVersion
   val circeParser    = "io.circe"                   %% "circe-parser"   % circeVersion
+  val pureConfig     = "com.github.pureconfig"      %% "pureconfig"     % pureConfigV
 }
