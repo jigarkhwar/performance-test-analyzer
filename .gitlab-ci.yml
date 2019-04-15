@@ -22,21 +22,21 @@ before_script:
 
 test:
   tags:
-    - common-load
+    - build
   stage: test
   script:
     - sbt clean test
     
 build:
   tags:
-    - common-load
+    - build
   stage: build
   script:
     - sbt universal:packageBin
 
 deploy:
   tags:
-    - common-load
+    - build
   stage: deploy
   script:
     - apt-get update -yq
