@@ -1,0 +1,38 @@
+# This file is a template, and might need editing before it works on your project.
+# Official Java image. Look for the different tagged releases at
+# https://hub.docker.com/r/library/java/tags/ . A Java image is not required
+# but an image with a JVM speeds up the build a bit.
+image: java:11
+
+stages:
+  - test
+  - build
+  - deploy
+  
+  
+
+before_script:
+  - apt-get update -y
+  - apt-get install apt-transport-https -y
+  ## Install SBT
+  - echo "deb http://dl.bintray.com/sbt/debian /" | tee -a /etc/apt/sources.list.d/sbt.list
+  - apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 642AC823
+  - apt-get update -y
+  - apt-get install sbt -y
+  - sbt sbtVersion
+
+
+test:
+  stage: test
+  script:
+    - sbt clean test
+    
+build:
+  stage: build
+  script:
+    - sbt universal:packageBin
+
+deploy:
+  stage: deploy
+  script:
+    - apt-get update -yq
