@@ -42,6 +42,9 @@ lazy val commonDependencies = Seq(
   scalaLogging,
   slf4j,
   typesafeConfig,
+  pureConfig,
+  cats,
+  catsEffect,
   scalatest  % "test",
   scalacheck % "test"
 )
