@@ -23,16 +23,22 @@ before_script:
 
 
 test:
+  tags:
+    - docker
   stage: test
   script:
     - sbt clean test
     
 build:
+  tags:
+    - docker
   stage: build
   script:
     - sbt universal:packageBin
 
 deploy:
+  tags:
+    - docker
   stage: deploy
   script:
     - apt-get update -yq
