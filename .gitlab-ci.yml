@@ -24,21 +24,21 @@ before_script:
 
 test:
   tags:
-    - docker
+    - common-load
   stage: test
   script:
     - sbt clean test
     
 build:
   tags:
-    - docker
+    - common-load
   stage: build
   script:
     - sbt universal:packageBin
 
 deploy:
   tags:
-    - docker
+    - common-load
   stage: deploy
   script:
     - apt-get update -yq
