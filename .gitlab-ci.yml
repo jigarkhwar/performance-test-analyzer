@@ -25,7 +25,7 @@ test:
     - build
   stage: test
   script:
-    - sbt clean test
+    - sudo sbt clean test
     
 build:
   tags:
