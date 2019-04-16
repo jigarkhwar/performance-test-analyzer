@@ -32,11 +32,11 @@ build:
     - build
   stage: build
   script:
-    - sbt universal:packageBin
+    - sudo sbt universal:packageBin
 
 deploy:
   tags:
     - build
   stage: deploy
   script:
-    - apt-get update -yq
+    - sudo apt-get update -yq
