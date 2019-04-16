@@ -24,6 +24,7 @@ lazy val web = project
               akkaStream
             ))
   .dependsOn(core)
+  .enablePlugins(JavaAppPackaging)
 
 lazy val compilerOptions = Seq(
   "-unchecked",
