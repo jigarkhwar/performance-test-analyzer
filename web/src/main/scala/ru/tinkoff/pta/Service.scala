@@ -22,14 +22,17 @@ trait Service extends FileUpload with ScenarioRoute {
 
   val logger: LoggingAdapter
 
-  private def static: Route = pathSingleSlash(getFromResource("static/index.html"))
-  private def icon: Route = path("increasing-stats.png") (getFromResource("static/increasing-stats.png"))
-  private def css: Route = (get & pathPrefix("css")) (getFromResourceDirectory("static/css/"))
-  private def js: Route = (get & pathPrefix("js")) (getFromResourceDirectory("static/js/"))
+  private def static: Route =
+    get {
+      pathSingleSlash(getFromResource("static/index.html")) ~
+        path("""(.+\..+)""".r)(file => getFromResource(s"static/$file")) ~
+        pathPrefix("css")(getFromResourceDirectory("static/css")) ~
+        pathPrefix("js")(getFromResourceDirectory("static/js"))
+    }
 
 //  def testRunsRoute(testRuns: TestRuns): Route = ???
 
   def routes(sysName: String, scenarios: Scenarios, testRuns: TestRuns): Route = logRequestResult(sysName) {
-    static ~ css ~ js ~ icon ~ uploadFileRoute ~ scenarioRoute(scenarios)
+    static ~ uploadFileRoute ~ scenarioRoute(scenarios)
   }
 }
