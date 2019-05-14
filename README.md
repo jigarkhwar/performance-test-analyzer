@@ -1,4 +1,6 @@
 # performance-test-analyzer
+
+[![pipeline status](http://ci.tinkoff.cloud/loadtesting/performance-test-analyzer/badges/dev/pipeline.svg)](http://ci.tinkoff.cloud/loadtesting/performance-test-analyzer/commits/dev)
 ## Система анализа результатов нагрузочных тестов
 
 Сервис позволяющий анализировать и хранить результаты нагрузочных тестов.
