@@ -1,0 +1,116 @@
+  /*
+   * Sidebar
+   */
+
+  .sidebar {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 100;
+    /* Behind the navbar */
+    padding: 64px 0 0;
+    /* Height of navbar */
+    box-shadow: inset -1px 0 0 rgba(0, 0, 0, .2);
+  }
+
+  .sidebar-sticky {
+    position: relative;
+    top: 0;
+    height: calc(100vh - 64px);
+    padding-top: .5rem;
+    overflow-x: hidden;
+    overflow-y: auto;
+    /*Scrollable contents if viewport is shorter than content.*/
+  }
+
+  .sidebar-heading {
+    display: flex;
+    justify-content: space-between;
+    padding: .3rem 1rem;
+    cursor: default;
+    text-transform: uppercase;
+  }
+
+  .collapse-button {
+    color: #333
+  }
+
+  .sidebar-heading:hover .collapse-button {
+    color: #4c8d67;
+    filter: drop-shadow(0px 0px 2px #76c765);
+  }
+
+  @supports ((position: -webkit-sticky) or (position: sticky)) {
+    .sidebar-sticky {
+      position: -webkit-sticky;
+      position: sticky;
+    }
+  }
+
+  .sidebar .nav-link {
+    font-weight: 500;
+    color: #333;
+  }
+
+  /* Menu expanding */
+
+  .sidebar .nav-item.expanded .fa-minus-square {
+    display: initial;
+  }
+
+  .sidebar .nav-item.expanded .fa-plus-square {
+    display: none;
+  }
+
+  .sidebar .nav-item .fa-minus-square {
+    display: none;
+  }
+
+  .sidebar .nav-item .fa-plus-square {
+    display: initial;
+  }
+
+  .sidebar .nav-item.expanded ul {
+    display: block;
+  }
+
+  .sidebar .nav-item ul {
+    display: none;
+  }
+
+  /*----------------*/
+
+  .nav-icon {
+    font-size: 1.02rem;
+    width: 24px;
+    display: inline-block;
+    text-align: center
+  }
+
+  .sidebar li.nav-item.active a {
+    background: #cdd2d5;
+    color: #4c8d67
+  }
+
+  .sidebar li.nav-item a:hover i {
+    color: #4c8d67;
+    filter: drop-shadow(0px 0px 2px #76c765);
+  }
+
+  .sidebar li.nav-item a:hover {
+    border-right-style: solid;
+    border-color: #76c765;
+    border-width: 2pt;
+  }
+
+  /*
+   * Content
+   */
+
+  @media (min-width: 768px) {
+    [role="main"] {
+      padding-top: 24px;
+      /* Space for fixed navbar */
+    }
+  }
