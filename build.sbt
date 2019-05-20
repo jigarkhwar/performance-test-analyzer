@@ -7,7 +7,7 @@ ThisBuild / version := "0.1.0-SNAPSHOT"
 ThisBuild / organization := "ru.tinkoff"
 ThisBuild / organizationName := "tinkoff"
 
-version := "0.1"
+version := "0.1.1"
 
 scalacOptions += "-Ypartial-unification"
 
