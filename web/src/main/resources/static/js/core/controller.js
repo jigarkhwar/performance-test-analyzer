@@ -1,10 +1,14 @@
 import ProjectsMenuView from './menu-view.js'
 import Model from './model.js'
 import View from './page-view.js';
+import ProjectTestsPage from '../pages/project-tests.js'
 
 const model = new Model()
 const view = new View('main')
 const menu = new ProjectsMenuView()
+const page = new ProjectTestsPage()
+
+
 menu.render(model)
 
 const tests = ({ blId, prId, prev }) => {

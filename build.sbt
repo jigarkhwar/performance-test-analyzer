@@ -3,11 +3,11 @@ import Dependencies._
 name := "performance-test-analyzer"
 
 ThisBuild / scalaVersion := "2.12.8"
-ThisBuild / version := "0.1.0-SNAPSHOT"
+ThisBuild / version := "0.1.5-SNAPSHOT"
 ThisBuild / organization := "ru.tinkoff"
 ThisBuild / organizationName := "tinkoff"
 
-version := "0.1.1"
+version := "0.1.5"
 
 scalacOptions += "-Ypartial-unification"
 
@@ -47,5 +47,7 @@ lazy val commonDependencies = Seq(
   cats,
   catsEffect,
   scalatest  % "test",
-  scalacheck % "test"
+  scalacheck % "test",
+  akkaStreamTest % "test",
+  akkaHttpTest % "test"
 )
