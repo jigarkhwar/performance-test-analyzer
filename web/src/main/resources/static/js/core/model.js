@@ -7,7 +7,7 @@ const testRuns = {
       { id: 4, name: 'Test 4', date: new Date(), rps: 60 },
     ]
   },
-  3: {
+  2: {
     1: [
       { id: 1, name: 'Test 1', date: new Date(), rps: 10 },
       { id: 2, name: 'Test 2', date: new Date(), rps: 150 },
@@ -26,7 +26,7 @@ const testRuns = {
 const items = [
   {
     id: 1,
-    name: 'Business Line 1',
+    name: 'Линия 1',
     projects: [
       { id: 1, name: 'Project 1' },
       { id: 2, name: 'Project 2' },

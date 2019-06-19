@@ -1,5 +1,5 @@
 import _ from '../utils/utils.js'
-import { vn, h1, h2, span } from '../utils/vdom.js'
+import { vn, h1, h2, h5, brow, bcol, span } from '../utils/vdom.js'
 
 
 const emptyPage = () => h1('...')
@@ -17,24 +17,36 @@ const notFoundError = (blId, projectId) => h2(
 
 const tests = (data, rowSize) =>
   _.chunks(data, rowSize)
-    .map(t => vn('.row', t.map(testRun)))
+    .map(t => brow(t.map(testRun)))
 
 
-const testsInProject = (projectName, testsData, rowSize = 4) => [
-  h2(projectName),
+const testsInProject = (projectName, testsData, rowSize = 4) => _.flatten([
+  brow(
+    { 'class': 'pb-4' },
+    bcol()(h2(projectName)),
+    bcol()(
+      { 'class': 'text-right' },
+      vn('button.btn.btn-primary', {'data-toggle': 'modal', 'data-target' :'#upload-modal'}, vn('i.fas.fa-file-upload'), '  Load log')
+    )
+  ),
   _.nonEmpty(testsData) ? tests(testsData, rowSize) :
-    vn('p', `No tests in project ${projectName}`)
-].flat()
+    brow(
+      bcol()(
+        h5(`No tests in project ${projectName}`))
+    )
+])
 
 
 const testRun = (test) =>
-  vn(`#test-${test.id}.card.mb-5`,
-    vn('.card-header', test.name),
-    vn('ul.list-group.list-group-flush',
-      vn('li.list-group-item', `Date - ${_.formatDate(test.date, '.')}`),
-      vn('li.list-group-item', `RPS - ${test.rps}`)
+  bcol(3)(
+    vn(`#test-${test.id}.card.mb-5`,
+      vn('.card-header', test.name),
+      vn('ul.list-group.list-group-flush',
+        vn('li.list-group-item', `Date - ${_.formatDate(test.date, '.')}`),
+        vn('li.list-group-item', `RPS - ${test.rps}`)
+      )
     )
-  ).wrap('.col-3')
+  )
 
 
 const blHeader = (name) =>

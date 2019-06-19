@@ -29,13 +29,11 @@ export class VNode {
       if (!this.tag) {
         this.tag = part.toUpperCase()
       } else if (part.charAt(0) === '.') {
-        if (!this.classes) this.classes = []
-        this.classes.push(part.substring(1, part.length))
+        this.addClass(part.substring(1, part.length))
       } else if (part.charAt(0) === '#' && !this.id) {
         this.id = part.substring(1, part.length)
       } else if (part.charAt(0) === '[') {
-        if (!this.attributes) this.attributes = []
-        this.attributes = this.attributes.concat(parseAttr(part))
+        this.attr(parseAttr(part))
       }
     }
   }
@@ -72,10 +70,22 @@ export class VNode {
     else return empty();
   }
 
+  addClass (className) {
+    if (!this.classes) this.classes = []
+    if (className && typeof className === 'string') this.classes.push(className)
+    return this
+  }
+
   attr (attrs = {}) {
     if (!this.attributes) this.attributes = []
     if (attrs.constructor.name === 'Object') {
-      Object.entries(attrs).forEach(a => this.attributes.push(a))
+      Object.entries(attrs).forEach(a => {
+        if (a[0] === 'class') {
+          a[1].split(' ').forEach(cl => this.addClass(cl))
+        } else {
+          this.attributes.push(a)
+        }
+      })
     } else if (attrs.constructor.name === 'Array') {
       this.attributes = this.attributes.concat(attrs)
     }
@@ -141,6 +151,9 @@ export const h5 = (...children) => vn('h5', ...children)
 export const h6 = (...children) => vn('h6', ...children)
 
 export const span = (...children) => vn('span', ...children)
+
+export const brow = (...children) => vn('.row', ...children)
+export const bcol = colNum => (...children) => colNum ? vn(`.col-${colNum}`, ...children) : vn('.col', ...children)
 
 export function vn () {
   const _args = Array.from(arguments)

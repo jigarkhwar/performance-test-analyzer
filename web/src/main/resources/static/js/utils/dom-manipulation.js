@@ -34,6 +34,8 @@ class DOMUtils {
     if (this._value.length > 0 && typeof fn === 'function') {
       this._value = this._value.map(fn)
     }
+    this._value = this._value.filter(e => e !== undefined)
+
     return this;
   }
 
@@ -133,6 +135,10 @@ class DOMUtils {
         e.removeChild(e.firstChild);
       }
     })
+  }
+
+  on(evt, handler){
+    return this.forEach(e => e.addEventListener(evt, handler, false))
   }
 
 }

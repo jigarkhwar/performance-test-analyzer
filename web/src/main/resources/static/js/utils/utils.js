@@ -5,6 +5,25 @@ const isNot = (obj, objType) => type(obj) !== objType
 const isEmpty = (a) => a && a.length && a.length > 0 ? false : true
 const nonEmpty = (a) => !isEmpty(a)
 
+const flatten = (arr) => {
+  if(!Array.isArray(arr)) return []
+  if(Array.prototype.flat) {
+    return arr.flat()
+  } else {
+    const stack = [...arr]
+    const res = []
+    while (stack.length){
+      const next = stack.pop()
+      if(Array.isArray(next)) {
+        stack.push(...next)
+      } else {
+        res.push(next)
+      }
+    }
+    return res.reverse()
+  }
+}
+
 export default {
   isDigit: c => c > 47 && c < 58,
   clearSlashes: path => path.toString().replace(/\/$/, '').replace(/^\//, ''),
@@ -35,5 +54,6 @@ export default {
       result.push(temp)
     }
     return result
-  }
+  },
+  flatten
 }
