@@ -1,0 +1,18 @@
+[
+  {
+    "id": 0,
+    "name": "BasicSimulation",
+    "creator": {
+      "id": 0,
+      "name": "str"
+    },
+    "classPath": "BasicSimulation",
+    "project": {
+      "id": 0,
+      "name": "Telephony",
+      "repository": "keklab-telephony"
+    },
+    "timePlan": 1,
+    "rampUp": 1
+  }
+]
