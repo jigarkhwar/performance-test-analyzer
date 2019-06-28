@@ -2,25 +2,21 @@ package ru.tinkoff.pta
 
 import akka.actor.ActorSystem
 import akka.event.LoggingAdapter
+import akka.http.scaladsl.model.HttpEntity
+import akka.http.scaladsl.model.MediaTypes.{`application/json` => JSON}
 import akka.http.scaladsl.server.Directives._
 import akka.http.scaladsl.server.Route
-import akka.stream.Materializer
-import ru.tinkoff.pta.Routes.{FileUpload, ScenarioRoute}
-import ru.tinkoff.pta.entities.{Scenarios, TestRuns}
+import cats.effect.IO
 
-import scala.concurrent.ExecutionContextExecutor
-
-trait Service extends FileUpload with ScenarioRoute {
+trait Service {
 
   val name: String
 
-  implicit val system: ActorSystem
-  implicit val materializer: Materializer
-  implicit val executor: ExecutionContextExecutor
-
   def appConfig: AppConfig
 
-  val logger: LoggingAdapter
+  def logger(implicit system: ActorSystem): IO[LoggingAdapter]
+
+  def system: IO[ActorSystem] = IO(ActorSystem(name))
 
   private def static: Route =
     get {
@@ -30,9 +26,15 @@ trait Service extends FileUpload with ScenarioRoute {
         pathPrefix("js")(getFromResourceDirectory("static/js"))
     }
 
-//  def testRunsRoute(testRuns: TestRuns): Route = ???
+  private val version = "0.2.0"
 
-  def routes(sysName: String, scenarios: Scenarios, testRuns: TestRuns): Route = logRequestResult(sysName) {
-    static ~ uploadFileRoute ~ scenarioRoute(scenarios)
+  private def versionRoute: Route = pathPrefix("version") {
+    get {
+      complete(HttpEntity(JSON, s"""{ "version": "$version" }"""))
+    }
+  }
+
+  def routes(sysName: String): Route = logRequestResult(sysName) {
+    static ~ versionRoute
   }
 }

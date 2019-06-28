@@ -11,29 +11,25 @@ import scala.concurrent._
 
 trait FileUpload {
 
-  implicit val system: ActorSystem
-  implicit def executor: ExecutionContextExecutor
-  implicit val materializer: Materializer
-
   type Request = Int
 
   case class ParseInfo(startTime: Option[String], endTime: Option[String], requests: Vector[Request]) ///TODO вынести
 
   def parseFile(currentState: ParseInfo, string: ByteString): IO[ParseInfo] = IO { ParseInfo(None, None, Vector.empty) } ///TODO вынести
 
-  def uploadFileRoute: Route = path("test" / "upload" / "file") {
-    post {
-      fileUpload("logSource") {
-        case (_, byteSource) =>
-          val result: Future[ParseInfo] =
-            byteSource
-              .via(Framing.delimiter(ByteString(System.lineSeparator), 2 * 1024, allowTruncation = true))
-              .runFoldAsync(ParseInfo(None, None, Vector.empty))((currentState, string) =>
-                parseFile(currentState, string).unsafeToFuture)
-
-          onSuccess(result)(_ => complete(s"OK"))
-      }
-    }
-  }
+//  def uploadFileRoute: Route = path("test" / "upload" / "file") {
+//    post {
+//      fileUpload("logSource") {
+//        case (_, byteSource) =>
+//          val result: Future[ParseInfo] =
+//            byteSource
+//              .via(Framing.delimiter(ByteString(System.lineSeparator), 2 * 1024, allowTruncation = true))
+//              .runFoldAsync(ParseInfo(None, None, Vector.empty))((currentState, string) =>
+//                parseFile(currentState, string).unsafeToFuture)
+//
+//          onSuccess(result)(_ => complete(s"OK"))
+//      }
+//    }
+//  }
 
 }
